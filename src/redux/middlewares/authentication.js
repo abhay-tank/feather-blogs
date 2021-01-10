@@ -15,13 +15,6 @@ const signIn = (action) => async (dispatch, getState) => {
 		);
 		if (response.status === 202 && response.data.status === "successful") {
 			let { user } = response.data.data;
-			// Not needed
-			// if (!user.accountVerified) {
-			// 	dispatch({
-			// 		type: authActions.ERROR,
-			// 		payload: { error: new Error("User not verified") },
-			// 	});
-			// }
 			let newPayload = {
 				user: new User(
 					user.firstName,
@@ -78,7 +71,6 @@ const signUp = (action) => async (dispatch, getState) => {
 					},
 					user.accountVerified
 				),
-				jwt: response.data.data.jwt,
 			};
 			dispatch({
 				type: authActions.SIGNIN,

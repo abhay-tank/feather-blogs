@@ -1,4 +1,4 @@
-import User from "../models/User";
+import User from "../../models/User";
 import authActions from "../constants/auth.actions";
 const defaultState = {
 	user: new User(),

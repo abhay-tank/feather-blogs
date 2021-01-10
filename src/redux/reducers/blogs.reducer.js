@@ -11,26 +11,36 @@ const blogsReducer = (state = defaultState, action) => {
 		case blogsActions.CREATE:
 			return {
 				...state,
+				loading: false,
+				error: null,
 				blogs: [...state.blogs, ...action.payload.blogs],
 			};
 		case blogsActions.GETALL:
 			return {
 				...state,
+				loading: false,
+				error: null,
 				blogs: [...state.blogs, ...action.payload.blogs],
 			};
 		case blogsActions.GETBYID:
 			return {
 				...state,
+				loading: false,
+				error: null,
 				blogs: [...state.blogs, ...action.payload.blogs],
 			};
 		case blogsActions.UPDATE:
 			return {
 				...state,
+				loading: false,
+				error: null,
 				blogs: [...state.blogs, ...action.payload.blogs],
 			};
 		case blogsActions.DELETE:
 			return {
 				...state,
+				loading: false,
+				error: null,
 				blogs: [...state.blogs, ...action.payload.blogs],
 			};
 
