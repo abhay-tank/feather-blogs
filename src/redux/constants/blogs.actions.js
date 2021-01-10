@@ -4,6 +4,8 @@ const blogsActions = {
 	GETBYID: "blogs/getBlogById",
 	UPDATE: "blogs/updateBlog",
 	DELETE: "blogs/deleteBlog",
+	LOADING: "blogs/loading",
+	ERROR: "blogs/error",
 };
 
 export default blogsActions;

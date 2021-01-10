@@ -1,6 +1,8 @@
 import blogsActions from "../constants/blogs.actions";
 const defaultState = {
 	blogs: [],
+	loading: false,
+	error: null,
 };
 const blogsReducer = (state = defaultState, action) => {
 	switch (action.type) {
@@ -30,6 +32,19 @@ const blogsReducer = (state = defaultState, action) => {
 			return {
 				...state,
 				blogs: [...state.blogs, ...action.payload.blogs],
+			};
+
+		case blogsActions.LOADING:
+			return {
+				...state,
+				loading: true,
+				error: null,
+			};
+		case blogsActions.ERROR:
+			return {
+				...state,
+				loading: false,
+				error: action.payload.error,
 			};
 	}
 };

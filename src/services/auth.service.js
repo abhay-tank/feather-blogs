@@ -16,7 +16,10 @@ class Auth {
 					user.firstName,
 					user.lastName || null,
 					user.email,
-					user.avatarImage,
+					{
+						avatarURL: user.avatarImage.avatarURL,
+						avatarAlt: user.avatarImage.avatarAlt,
+					},
 					user.accountVerified
 				);
 				this.jwt = response.data.data.jwt;
