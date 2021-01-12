@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { useState } from "react";
 import actionGenerator from "../../redux/actionsGenerator/actions.generator";
-import authActions from "./../../redux/constants/auth.actions";
+import authActions from "../../redux/constants/auth.actions";
 function SignUpPage(props) {
 	const [formData, setFormData] = useState({
 		firstName: "",
