@@ -4,6 +4,7 @@ const defaultState = {
 	user: new User(),
 	loading: false,
 	error: null,
+	isLoggedIn: false,
 };
 
 const authReducer = (state = defaultState, action) => {
@@ -15,6 +16,7 @@ const authReducer = (state = defaultState, action) => {
 				...state,
 				loading: false,
 				error: null,
+				isLoggedIn: action.payload.user ? true : false,
 				user: { ...action.payload.user } || { ...state.user },
 			};
 		case authActions.SIGNUP:
@@ -22,6 +24,7 @@ const authReducer = (state = defaultState, action) => {
 				...state,
 				loading: false,
 				error: null,
+				isLoggedIn: action.payload.user ? true : false,
 				user: { ...action.payload.user } || { ...state.user },
 			};
 		case authActions.SIGNOUT:
@@ -29,6 +32,7 @@ const authReducer = (state = defaultState, action) => {
 				...state,
 				loading: false,
 				error: null,
+				isLoggedIn: false,
 				user: { ...action.payload.user } || { ...state.user },
 			};
 		case authActions.LOADING:

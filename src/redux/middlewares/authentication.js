@@ -1,68 +1,23 @@
 import axios from "axios";
 import config from "../../configuration/config";
-import AuthError from "../../models/AuthError";
 import authActions from "../constants/auth.actions";
 import User from "./../../models/User";
 
-const signIn = (action, payload) => async (dispatch, getState) => {
-	dispatch({
-		type: authActions.LOADING,
-	});
-	try {
-		let response = await axios.post(
-			config.BACKEND_BASE_URL + config.AUTH_SIGNIN_ENDPOINT,
-			payload.formData
-		);
-		if (response.status === 202 && response.data.status === "successful") {
-			let { user } = response.data.data;
-			let newPayload = {
-				user: new User(
-					user.firstName,
-					user.lastName || null,
-					user.email,
-					{
-						avatarURL: user.avatarImage.avatarURL,
-						avatarAlt: user.avatarImage.avatarAlt,
-					},
-					user.accountVerified
-				),
-				jwt: response.data.data.jwt,
-			};
-			dispatch({
-				type: authActions.SIGNIN,
-				payload: newPayload,
-			});
-		} else if (response.status === 400) {
-			throw new AuthError("Authentication Error: " + response.data.message);
-		} else {
-			console.error(response.data.message);
-			throw new AuthError("Authentication Server Error");
-		}
-	} catch (error) {
-		console.error(error);
-		let newError;
-		if (error instanceof AuthError) {
-			newError = error;
-		}
-		newError = new Error("Error authenticating: ", error);
-		dispatch({ type: authActions.ERROR, payload: { error: newError } });
-	}
-};
-
 const signUp = (action, payload) => (dispatch, getState) => {
-	console.log(payload);
 	dispatch({
 		type: authActions.LOADING,
+		payload: { ...payload },
 	});
 	axios
-		.post(
-			config.BACKEND_BASE_URL + config.AUTH_SIGNUP_ENDPOINT,
-			payload.formData
-		)
+		.post(config.BACKEND_BASE_URL + config.AUTH_SIGNUP_ENDPOINT, payload.user, {
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+		})
 		.then((response) => {
-			console.log(response.data);
 			if (response.status === 200 && response.data.status === "successful") {
-				let { user } = response.data.data;
+				let user = response.data.data;
+				console.log(user);
 				let newPayload = {
 					user: new User(
 						user.firstName,
@@ -80,24 +35,28 @@ const signUp = (action, payload) => (dispatch, getState) => {
 					type: authActions.SIGNUP,
 					payload: newPayload,
 				});
-			} else if (response.status === 400) {
-				console.error("Error fetching data => ", response);
-				console.log("Error fetching data => ", response);
-				throw new AuthError("Authentication Error: " + response.data.message);
-			} else {
-				console.error(response.data.message);
-				throw new AuthError("Authentication Server Error");
 			}
 		})
 		.catch((error) => {
-			console.error(error);
+			console.error("Inside Error =>", error);
 			let newError;
-			if (error instanceof AuthError) {
-				newError = error;
+			if (
+				(error.response && error.response.status === 400) ||
+				error.response.status === 406
+			) {
+				console.error("Error fetching data => ", error.response.data.message);
+				newError = "Authentication Error: " + error.response.data.message;
+			} else {
+				console.error(error.response.data.message);
+				newError = "Authentication Server Error";
 			}
-			newError = new Error("Error authenticating: ", error);
-			dispatch({ type: authActions.ERROR, payload: { error: newError } });
+			dispatch({
+				type: authActions.ERROR,
+				payload: { ...payload, error: newError },
+			});
 		});
 };
+
+const signIn = (action, payload) => async (dispatch, getState) => {};
 
 export { signIn, signUp };

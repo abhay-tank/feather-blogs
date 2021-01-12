@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import SignUpPage from "../pages/SignUp/SignUpPage";
-import HomePage from "../pages/home/HomePage";
+import SignUpPage from "../pages/signUp/signUpPage";
+import HomePage from "../pages/home/homePage";
 
 export default class BlogsRouter extends Component {
 	render() {
