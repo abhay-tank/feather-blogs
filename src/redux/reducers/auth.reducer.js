@@ -5,6 +5,7 @@ const defaultState = {
 	loading: false,
 	error: null,
 	isLoggedIn: false,
+	jwt: null,
 };
 
 const authReducer = (state = defaultState, action) => {
@@ -16,15 +17,25 @@ const authReducer = (state = defaultState, action) => {
 				...state,
 				loading: false,
 				error: null,
-				isLoggedIn: action.payload.user ? true : false,
+				isLoggedIn: action.payload.user.accountVerified ? true : false,
 				user: { ...action.payload.user } || { ...state.user },
+				jwt: action.payload.jwt || state.jwt,
 			};
 		case authActions.SIGNUP:
 			return {
 				...state,
 				loading: false,
 				error: null,
-				isLoggedIn: action.payload.user ? true : false,
+				isLoggedIn: false,
+				user: { ...action.payload.user } || { ...state.user },
+				jwt: state.jwt,
+			};
+		case authActions.VERIFYUSER:
+			return {
+				...state,
+				loading: false,
+				error: null,
+				isLoggedIn: false,
 				user: { ...action.payload.user } || { ...state.user },
 			};
 		case authActions.SIGNOUT:

@@ -1,9 +1,10 @@
 import authActions from "../constants/auth.actions";
 import blogsActions from "../constants/blogs.actions";
 import User from "../../models/User";
-import { signIn, signUp } from "../middlewares/authentication";
+import { signIn, signUp, verifyUser } from "../middlewares/authentication";
 
 const actionGenerator = (action, payload) => {
+	console.log(action);
 	switch (action) {
 		default:
 			return {
@@ -14,6 +15,8 @@ const actionGenerator = (action, payload) => {
 			return signIn(action, payload);
 		case authActions.SIGNUP:
 			return signUp(action, payload);
+		case authActions.VERIFYUSER:
+			return verifyUser(action, payload);
 		case authActions.SIGNOUT:
 			return {
 				type: authActions.SIGNOUT,

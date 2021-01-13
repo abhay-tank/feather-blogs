@@ -15,7 +15,7 @@ function SignUpPage(props) {
 		event.preventDefault();
 		switch (event.target.name) {
 			default:
-				return null;
+				break;
 			case "firstName":
 				if (event.target.value.trim().length <= 0) {
 					props.raiseError("FirstName too short.");
@@ -54,72 +54,74 @@ function SignUpPage(props) {
 		});
 		return props.signUp(newUser);
 	};
-	return (
-		<div>
-			{props.state.loading ? (
-				<div>Loading</div>
-			) : (
-				<div>
-					{props.state.error ? <h3>{props.state.error}</h3> : null}
-					{props.state.isLoggedIn && !props.state.user.accountVerified ? (
-						<h1>Verification email sent. Verify account and sign in.</h1>
-					) : (
-						<form onSubmit={signUp} id="signUpForm" name="signUpForm">
-							<label htmlFor="firstName">First Name</label>
-							<input
-								id="firstName"
-								onChange={handleChange}
-								value={formData.firstName}
-								name="firstName"
-								type="text"
-								required
-							/>
-							<br />
-							<label htmlFor="lastName">Last Name</label>
-							<input
-								id="lastName"
-								onChange={handleChange}
-								value={formData.lastName}
-								name="lastName"
-								type="text"
-							/>
-							<br />
-							<label htmlFor="email">Email</label>
-							<input
-								onChange={handleChange}
-								value={formData.email}
-								id="email"
-								name="email"
-								type="email"
-								required
-							/>
-							<br />
-							<label htmlFor="password">Password</label>
-							<input
-								onChange={handleChange}
-								value={formData.password}
-								id="password"
-								name="password"
-								type="password"
-								autoComplete="true"
-								required
-							/>
-							<br />
-							<label htmlFor="avatarImage">Profile Image</label>
-							<input
-								onChange={handleChange}
-								id="avatarImage"
-								name="avatarImage"
-								type="file"
-								accept="image/*"
-							/>
-							<button type="submit">Submit</button>
-						</form>
-					)}
-				</div>
-			)}
-		</div>
-	);
+	if (props.state.isLoggedIn) {
+		return <h1>Already Signed in.</h1>;
+	} else if (props.state.loading) {
+		return <h1>Loading</h1>;
+	} else if (
+		props.state.user.firstName &&
+		props.state.user.firstName.length &&
+		!props.state.user.accountVerified
+	) {
+		return <h1>Verification email sent. Verify account and sign in.</h1>;
+	} else {
+		return (
+			<div>
+				{props.state.error ? <h1>{props.state.error}</h1> : null}
+				<form onSubmit={signUp} id="signUpForm" name="signUpForm">
+					<label htmlFor="firstName">First Name</label>
+					<input
+						id="firstName"
+						onChange={handleChange}
+						value={formData.firstName}
+						name="firstName"
+						type="text"
+						required
+					/>
+					<br />
+					<label htmlFor="lastName">Last Name</label>
+					<input
+						id="lastName"
+						onChange={handleChange}
+						value={formData.lastName}
+						name="lastName"
+						type="text"
+					/>
+					<br />
+					<label htmlFor="email">Email</label>
+					<input
+						onChange={handleChange}
+						value={formData.email}
+						id="email"
+						name="email"
+						type="email"
+						required
+					/>
+					<br />
+					<label htmlFor="password">Password</label>
+					<input
+						onChange={handleChange}
+						value={formData.password}
+						id="password"
+						name="password"
+						type="password"
+						autoComplete="true"
+						required
+					/>
+					<br />
+					<label htmlFor="avatarImage">Profile Image</label>
+					<input
+						onChange={handleChange}
+						id="avatarImage"
+						name="avatarImage"
+						type="file"
+						accept="image/*"
+					/>
+					<button type="submit">Submit</button>
+				</form>
+			</div>
+		);
+	}
 }
 
 export const mapStateToProps = (state, defaultProps) => {

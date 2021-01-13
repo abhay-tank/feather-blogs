@@ -1,0 +1,53 @@
+import React, { useEffect } from "react";
+import { withRouter, Link } from "react-router-dom";
+import { connect } from "react-redux";
+import actionGenerator from "./../../redux/actionsGenerator/actions.generator";
+import authActions from "./../../redux/constants/auth.actions";
+
+function VerifyUser(props) {
+	console.log(props);
+	useEffect(() => {
+		if (!props.state.isLoggedIn) {
+			console.log("DATA FETCHED FOR VERIFICATION");
+			props.verifyUserAccount(props.match.params.authToken);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	if (props.state.user.accountVerified) {
+		return (
+			<div>
+				<h1>You are successfully verified. SignIn to continue</h1>
+				<Link to="/signIn">
+					<button>Sign In</button>
+				</Link>
+			</div>
+		);
+	} else if (props.state.error) {
+		return <h1>{props.state.error}</h1>;
+	} else if (props.state.loading) {
+		return <h1>Loading</h1>;
+	} else {
+		return <h1>Signup first.</h1>;
+	}
+}
+
+export const mapStateToProps = (state, defaultProps) => {
+	return {
+		state: state.authReducer,
+	};
+};
+
+export const mapDispatchToProps = (dispatch, ownProps) => {
+	return {
+		verifyUserAccount: (token) => {
+			dispatch(
+				actionGenerator(authActions.VERIFYUSER, { verificationToken: token })
+			);
+		},
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(withRouter(VerifyUser));

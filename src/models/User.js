@@ -1,13 +1,13 @@
 class User {
 	constructor(
-		firstName = "",
-		lastName = "",
-		email = "",
+		firstName = null,
+		lastName = null,
+		email = null,
 		avatarImage = {
-			avatarURL: "",
-			avatarAlt: "",
+			avatarURL: null,
+			avatarAlt: null,
 		},
-		accountVerified = false
+		accountVerified = null
 	) {
 		this.firstName = firstName;
 		this.lastName = lastName;

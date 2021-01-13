@@ -15,30 +15,26 @@ const signUp = (action, payload) => (dispatch, getState) => {
 			},
 		})
 		.then((response) => {
-			if (response.status === 200 && response.data.status === "successful") {
-				let user = response.data.data;
-				console.log(user);
-				let newPayload = {
-					user: new User(
-						user.firstName,
-						user.lastName || null,
-						user.email,
-						{
-							avatarURL: user.avatarImage.avatarURL,
-							avatarAlt: user.avatarImage.avatarAlt,
-						},
-						user.accountVerified
-					),
-				};
-				console.log(newPayload);
-				dispatch({
-					type: authActions.SIGNUP,
-					payload: newPayload,
-				});
-			}
+			let user = response.data.data;
+			console.log(user);
+			let newPayload = {
+				user: new User(
+					user.firstName,
+					user.lastName || null,
+					user.email,
+					{
+						avatarURL: user.avatarImage.avatarURL,
+						avatarAlt: user.avatarImage.avatarAlt,
+					},
+					user.accountVerified
+				),
+			};
+			dispatch({
+				type: authActions.SIGNUP,
+				payload: newPayload,
+			});
 		})
 		.catch((error) => {
-			console.error("Inside Error =>", error);
 			let newError;
 			if (
 				(error.response && error.response.status === 400) ||
@@ -57,6 +53,109 @@ const signUp = (action, payload) => (dispatch, getState) => {
 		});
 };
 
-const signIn = (action, payload) => async (dispatch, getState) => {};
+const verifyUser = (action, payload) => (dispatch, getState) => {
+	dispatch({
+		type: authActions.LOADING,
+		payload: { ...payload },
+	});
+	axios
+		.get(
+			config.BACKEND_BASE_URL +
+				config.AUTH_VERIFY_USER_ACCOUNT_ENDPOINT +
+				payload.verificationToken
+		)
+		.then((response) => {
+			let user = response.data.data;
+			if (response.status === 200 && response.data.status === "successful") {
+				let newPayload = {
+					user: new User(
+						user.firstName,
+						user.lastName || null,
+						user.email,
+						{
+							avatarURL: user.avatarImage.avatarURL,
+							avatarAlt: user.avatarImage.avatarAlt,
+						},
+						user.accountVerified
+					),
+				};
+				dispatch({
+					type: authActions.VERIFYUSER,
+					payload: newPayload,
+				});
+			} else {
+				console.error("some error occurred while verifying user");
+			}
+		})
+		.catch((error) => {
+			let newError;
+			if (
+				(error.response && error.response.status === 404) ||
+				error.response.status === 400
+			) {
+				console.error("Error fetching data => ", error.response.data.message);
+				newError = "Authentication Error: " + error.response.data.message;
+			} else {
+				console.error(error.response.data.message);
+				newError = "Authentication Server Error";
+			}
+			dispatch({
+				type: authActions.ERROR,
+				payload: { ...payload, error: newError },
+			});
+		});
+};
 
-export { signIn, signUp };
+const signIn = (action, payload) => async (dispatch, getState) => {
+	dispatch({
+		type: authActions.LOADING,
+		payload: { ...payload },
+	});
+	axios
+		.post(config.BACKEND_BASE_URL + config.AUTH_SIGNIN_ENDPOINT, payload.user, {
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+		})
+		.then((response) => {
+			console.log(response.data.data);
+			let user = response.data.data.user;
+			console.log(user);
+			let newPayload = {
+				user: new User(
+					user.firstName,
+					user.lastName || null,
+					user.email,
+					{
+						avatarURL: user.avatarImage.avatarURL,
+						avatarAlt: user.avatarImage.avatarAlt,
+					},
+					user.accountVerified
+				),
+				jwt: response.data.data.user,
+			};
+			dispatch({
+				type: authActions.SIGNIN,
+				payload: newPayload,
+			});
+		})
+		.catch((error) => {
+			let newError;
+			if (
+				(error.response && error.response.status === 404) ||
+				error.response.status === 400
+			) {
+				console.error("Error fetching data => ", error.response.data.message);
+				newError = "Authentication Error: " + error.response.data.message;
+			} else {
+				console.error(error.response.data.message);
+				newError = "Authentication Server Error";
+			}
+			dispatch({
+				type: authActions.ERROR,
+				payload: { ...payload, error: newError },
+			});
+		});
+};
+
+export { signIn, signUp, verifyUser };
