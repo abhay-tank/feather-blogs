@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useState } from "react";
+import { Redirect } from "react-router-dom";
 import actionGenerator from "../../redux/actionsGenerator/actions.generator";
 import authActions from "../../redux/constants/auth.actions";
 function SignUpPage(props) {
@@ -55,7 +56,7 @@ function SignUpPage(props) {
 		return props.signUp(newUser);
 	};
 	if (props.state.isLoggedIn) {
-		return <h1>Already Signed in.</h1>;
+		return <Redirect to={"/blogs"} exact />;
 	} else if (props.state.loading) {
 		return <h1>Loading</h1>;
 	} else if (

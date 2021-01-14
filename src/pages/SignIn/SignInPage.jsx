@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 // import styles from "./signInPage.module.scss";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import actionGenerator from "../../redux/actionsGenerator/actions.generator";
 import authActions from "../../redux/constants/auth.actions";
@@ -44,14 +44,8 @@ function SignInPage(props) {
 		});
 		return props.signIn(user);
 	};
-
 	if (props.state.isLoggedIn) {
-		return (
-			<div>
-				<h1>User SignedIn</h1>
-				<button>Dashboard</button>
-			</div>
-		);
+		return <Redirect to={"/blogs"} exact />;
 	} else if (props.state.loading) {
 		return <h1>Loading</h1>;
 	} else {

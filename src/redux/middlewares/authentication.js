@@ -132,7 +132,7 @@ const signIn = (action, payload) => async (dispatch, getState) => {
 					},
 					user.accountVerified
 				),
-				jwt: response.data.data.user,
+				jwt: response.data.data.jwt,
 			};
 			dispatch({
 				type: authActions.SIGNIN,
