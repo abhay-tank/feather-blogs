@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 // import styles from "./signInPage.module.scss";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import actionGenerator from "./../../redux/actionsGenerator/actions.generator";
+import actionGenerator from "../../redux/actionsGenerator/actions.generator";
 import authActions from "../../redux/constants/auth.actions";
 
 function SignInPage(props) {

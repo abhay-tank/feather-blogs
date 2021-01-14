@@ -5,7 +5,6 @@ import actionGenerator from "./../../redux/actionsGenerator/actions.generator";
 import authActions from "./../../redux/constants/auth.actions";
 
 function VerifyUser(props) {
-	console.log(props);
 	useEffect(() => {
 		if (!props.state.isLoggedIn) {
 			console.log("DATA FETCHED FOR VERIFICATION");
