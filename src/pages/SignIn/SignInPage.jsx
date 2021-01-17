@@ -4,7 +4,7 @@ import { withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import actionGenerator from "../../redux/actionsGenerator/actions.generator";
 import authActions from "../../redux/constants/auth.actions";
-
+import Cookies from "js-cookie";
 function SignInPage(props) {
 	let [formData, setFormData] = useState({
 		email: "",
@@ -45,6 +45,7 @@ function SignInPage(props) {
 		return props.signIn(user);
 	};
 	if (props.state.isLoggedIn) {
+		Cookies.set("jwt", props.state.jwt);
 		return <Redirect to={"/blogs"} exact />;
 	} else if (props.state.loading) {
 		return <h1>Loading</h1>;
@@ -81,13 +82,13 @@ function SignInPage(props) {
 	}
 }
 
-export const mapStateToProps = (state, defaultProps) => {
+const mapStateToProps = (state, defaultProps) => {
 	return {
 		state: state.authReducer,
 	};
 };
 
-export const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
 	return {
 		signIn: (user) => {
 			dispatch(actionGenerator(authActions.SIGNIN, { user: user }));

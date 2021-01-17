@@ -39,13 +39,7 @@ const authReducer = (state = defaultState, action) => {
 				user: { ...action.payload.user } || { ...state.user },
 			};
 		case authActions.SIGNOUT:
-			return {
-				...state,
-				loading: false,
-				error: null,
-				isLoggedIn: false,
-				user: { ...action.payload.user } || { ...state.user },
-			};
+			return { ...defaultState };
 		case authActions.LOADING:
 			return {
 				...state,

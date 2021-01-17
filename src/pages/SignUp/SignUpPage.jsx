@@ -125,13 +125,13 @@ function SignUpPage(props) {
 	}
 }
 
-export const mapStateToProps = (state, defaultProps) => {
+const mapStateToProps = (state, defaultProps) => {
 	return {
 		state: state.authReducer,
 	};
 };
 
-export const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		signUp: (newUser) => {
 			dispatch(actionGenerator(authActions.SIGNUP, { user: newUser }));

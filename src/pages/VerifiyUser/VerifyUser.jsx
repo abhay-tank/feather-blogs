@@ -30,13 +30,13 @@ function VerifyUser(props) {
 	}
 }
 
-export const mapStateToProps = (state, defaultProps) => {
+const mapStateToProps = (state, defaultProps) => {
 	return {
 		state: state.authReducer,
 	};
 };
 
-export const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		verifyUserAccount: (token) => {
 			dispatch(

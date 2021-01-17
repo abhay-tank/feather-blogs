@@ -2,6 +2,44 @@ import axios from "axios";
 import config from "../../configuration/config";
 import authActions from "../constants/auth.actions";
 import User from "./../../models/User";
+const fetchSessionFromCookies = (action, payload) => (dispatch, getState) => {
+	axios
+		.get(config.BACKEND_BASE_URL + config.AUTH_VERIFY_JWT, {
+			headers: {
+				Authorization: `Bearer ${payload.jwt}`,
+			},
+		})
+		.then((response) => {
+			let user = response.data.data.user;
+			let newPayload = {
+				user: new User(
+					user.firstName,
+					user.lastName || null,
+					user.email,
+					{
+						avatarURL: user.avatarImage.avatarURL,
+						avatarAlt: user.avatarImage.avatarAlt,
+					},
+					user.accountVerified
+				),
+				jwt: response.data.data.jwt,
+			};
+			dispatch({
+				type: authActions.SIGNIN,
+				payload: newPayload,
+			});
+		})
+		.catch((error) => {
+			let newError;
+			if (error.response && error.response.status === 401) {
+				console.error(error.response.data.message);
+			} else {
+				console.error(error);
+			}
+			newError = "Error verifying JWT";
+			console.error(newError);
+		});
+};
 
 const signUp = (action, payload) => (dispatch, getState) => {
 	dispatch({
@@ -16,7 +54,6 @@ const signUp = (action, payload) => (dispatch, getState) => {
 		})
 		.then((response) => {
 			let user = response.data.data;
-			console.log(user);
 			let newPayload = {
 				user: new User(
 					user.firstName,
@@ -118,9 +155,7 @@ const signIn = (action, payload) => async (dispatch, getState) => {
 			},
 		})
 		.then((response) => {
-			console.log(response.data.data);
 			let user = response.data.data.user;
-			console.log(user);
 			let newPayload = {
 				user: new User(
 					user.firstName,
@@ -158,4 +193,20 @@ const signIn = (action, payload) => async (dispatch, getState) => {
 		});
 };
 
-export { signIn, signUp, verifyUser };
+const signOut = (action, payload) => (dispatch, getState) => {
+	dispatch({
+		type: authActions.LOADING,
+		payload: { ...payload },
+	});
+	axios.get(config.BACKEND_BASE_URL + config.AUTH_SIGNOUT_ENDPOINT, {
+		headers: {
+			Authorization: `Bearer ${payload.jwt}`,
+		},
+	});
+	dispatch({
+		type: authActions.SIGNOUT,
+		payload: { ...payload },
+	});
+};
+
+export { fetchSessionFromCookies, signIn, signUp, verifyUser, signOut };

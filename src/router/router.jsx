@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import SignUpPage from "../pages/SignUp/SignUpPage";
 import HomePage from "../pages/Home/HomePage";
@@ -7,11 +7,30 @@ import SignInPage from "./../pages/SignIn/SignInPage";
 import ProtectedRoute from "./ProtectedRoute";
 import NavbarComponent from "./../components/navbar/navbarComponent";
 import Blogs from "../pages/Blogs/Blogs";
-export default class BlogsRouter extends Component {
-	render() {
-		return (
-			<BrowserRouter>
-				<NavbarComponent />
+import Blog from "../pages/Blog/Blog";
+import { connect } from "react-redux";
+import actionGenerator from "../redux/actionsGenerator/actions.generator";
+import authActions from "../redux/constants/auth.actions";
+
+import Cookies from "js-cookie";
+import SignOut from "../pages/SignOut/SignOut";
+function BlogsRouter(props) {
+	const jwt = Cookies.get("jwt");
+	useEffect(() => {
+		if (!props.state.isLoggedIn) {
+			if (jwt) {
+				props.fetchSession(jwt);
+			}
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	if (jwt && props.state.error) {
+		Cookies.remove("jwt");
+	}
+	return (
+		<BrowserRouter>
+			<NavbarComponent />
+			<div className="main-container">
 				<Switch>
 					<Route path="/" exact>
 						<HomePage />
@@ -26,8 +45,25 @@ export default class BlogsRouter extends Component {
 						<VerifyUser />
 					</Route>
 					<ProtectedRoute exact path="/blogs" component={Blogs} />
+					<ProtectedRoute exact path="/blogs/:blogId" component={Blog} />
+					<ProtectedRoute exact path="/signOut" component={SignOut} />
 				</Switch>
-			</BrowserRouter>
-		);
-	}
+			</div>
+		</BrowserRouter>
+	);
 }
+
+const mapStateToProps = (state, defaultProps) => {
+	return {
+		state: state.authReducer,
+	};
+};
+
+const mapDispatchToProps = (dispatch, getState) => {
+	return {
+		fetchSession: (jwt) => {
+			dispatch(actionGenerator(authActions.FETCHSESSIONFROMCOOKIES, { jwt }));
+		},
+	};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(BlogsRouter);

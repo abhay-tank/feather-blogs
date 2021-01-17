@@ -1,14 +1,16 @@
 class Blog {
 	constructor(
-		blogId = "",
-		blogAuthor = "",
-		blogTitle = "",
-		blogContent = "",
-		blogImages = {
-			blogImageId: "",
-			blogImageAlt: "",
-			blogImageURL: "",
-		},
+		blogId = null,
+		blogAuthor = null,
+		blogTitle = null,
+		blogContent = null,
+		blogImages = [
+			{
+				blogImageId: null,
+				blogImageAlt: null,
+				blogImageURL: null,
+			},
+		],
 		blogRelatedLinks = [],
 		createdAt = null,
 		updatedAt = null

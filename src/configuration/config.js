@@ -5,6 +5,7 @@ const config = {
 	AUTH_SIGNOUT_ENDPOINT: "/auth/signOut", // GET
 	AUTH_SEND_VERIFICATION_EMAIL_ENDPOINT: "/auth/sendVerificationEmail/", // GET append :userId
 	AUTH_VERIFY_USER_ACCOUNT_ENDPOINT: "/auth/verifyUserAccount/", // GET append :verificationToken
+	AUTH_VERIFY_JWT: "/auth/verifyJWT", // GET add auth header with Bearer TOKEN
 	BLOGS_GET_ALL_ENDPOINT: "/blogs", // GET append ?limit=10 if needed
 	BLOGS_GET_BY_ID_ENDPOINT: "/blogs/", //  GET append :blogId
 	BLOGS_UPDATE_ENDPOINT: "/blogs/", // PATCH append :blogId

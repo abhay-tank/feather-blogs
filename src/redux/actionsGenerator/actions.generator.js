@@ -1,16 +1,22 @@
 import authActions from "../constants/auth.actions";
 import blogsActions from "../constants/blogs.actions";
-import User from "../../models/User";
-import { signIn, signUp, verifyUser } from "../middlewares/authentication";
-
+import {
+	signIn,
+	signUp,
+	signOut,
+	verifyUser,
+	fetchSessionFromCookies,
+} from "../middlewares/authentication";
+import { getAllBlogs, getBlogById } from "../middlewares/blogs";
 const actionGenerator = (action, payload) => {
-	console.log(action);
 	switch (action) {
 		default:
 			return {
 				type: "Invalid Action",
 				payload: payload,
 			};
+		case authActions.FETCHSESSIONFROMCOOKIES:
+			return fetchSessionFromCookies(action, payload);
 		case authActions.SIGNIN:
 			return signIn(action, payload);
 		case authActions.SIGNUP:
@@ -18,25 +24,16 @@ const actionGenerator = (action, payload) => {
 		case authActions.VERIFYUSER:
 			return verifyUser(action, payload);
 		case authActions.SIGNOUT:
-			return {
-				type: authActions.SIGNOUT,
-				payload: payload.user || { user: new User() },
-			};
+			return signOut(action, payload);
 		case blogsActions.CREATE:
 			return {
 				type: blogsActions.CREATE,
 				payload: payload || { blogs: [] },
 			};
 		case blogsActions.GETALL:
-			return {
-				type: blogsActions.GETALL,
-				payload: payload || { blogs: [] },
-			};
+			return getAllBlogs(action, payload);
 		case blogsActions.GETBYID:
-			return {
-				type: blogsActions.GETBYID,
-				payload: payload || { blogs: [] },
-			};
+			return getBlogById(action, payload);
 		case blogsActions.UPDATE:
 			return {
 				type: blogsActions.UPDATE,

@@ -1,6 +1,8 @@
+import Blog from "../../models/Blog";
 import blogsActions from "../constants/blogs.actions";
 const defaultState = {
 	blogs: [],
+	currentBlog: new Blog(),
 	loading: false,
 	error: null,
 };
@@ -27,7 +29,8 @@ const blogsReducer = (state = defaultState, action) => {
 				...state,
 				loading: false,
 				error: null,
-				blogs: [...state.blogs, ...action.payload.blogs],
+				blogs: [...state.blogs],
+				currentBlog: { ...action.payload.blog },
 			};
 		case blogsActions.UPDATE:
 			return {

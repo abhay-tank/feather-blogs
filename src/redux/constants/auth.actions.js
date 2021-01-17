@@ -1,4 +1,5 @@
 const authActions = {
+	FETCHSESSIONFROMCOOKIES: "auth/fetchSessionFromCookies",
 	SIGNIN: "auth/signIn",
 	SIGNUP: "auth/signUp",
 	SIGNOUT: "auth/signOut",
