@@ -31,7 +31,8 @@
 			outline: none;
 			background-color: $light-orange;
 			&:focus {
-				background-color: $mountain-meadow;
+				color: $mountain-meadow;
+				background-color: $dark-green;
 				border-bottom: 5px solid $light-orange;
 			}
 		}

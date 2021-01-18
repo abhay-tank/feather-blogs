@@ -9,7 +9,7 @@ body {
 	background: url("./assets/images/home-bg.svg") rgba(0, 0, 0, 0.4);
 	background-size: cover;
 	background-blend-mode: multiply;
-	color: $blue-sapphire;
+	color: $pale-spring-bud;
 }
 
 .main-container {
@@ -26,8 +26,12 @@ body {
 	border-radius: 3rem;
 	transition: 400ms;
 	&:hover {
-		border: 1px solid $dark-orange;
-		background-color: $light-orange;
+		border: 1px solid $mountain-meadow;
+		background-color: $dark-green;
+	}
+	&:focus {
+		outline: none;
+		border: 1px solid $mountain-meadow;
 	}
 }
 

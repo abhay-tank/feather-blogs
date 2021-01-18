@@ -6,6 +6,7 @@ const blogsActions = {
 	DELETE: "blogs/deleteBlog",
 	LOADING: "blogs/loading",
 	ERROR: "blogs/error",
+	WIPEDATA: "blogs/wipeData",
 };
 
 export default blogsActions;

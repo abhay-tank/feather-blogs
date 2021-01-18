@@ -7,7 +7,7 @@ import {
 	verifyUser,
 	fetchSessionFromCookies,
 } from "../middlewares/authentication";
-import { getAllBlogs, getBlogById } from "../middlewares/blogs";
+import { getAllBlogs, getBlogById, wipeData } from "../middlewares/blogs";
 const actionGenerator = (action, payload) => {
 	switch (action) {
 		default:
@@ -44,6 +44,8 @@ const actionGenerator = (action, payload) => {
 				type: blogsActions.DELETE,
 				payload: payload || { blogs: [] },
 			};
+		case blogsActions.WIPEDATA:
+			return wipeData(action, payload);
 	}
 };
 

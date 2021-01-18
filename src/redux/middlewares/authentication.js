@@ -194,10 +194,6 @@ const signIn = (action, payload) => async (dispatch, getState) => {
 };
 
 const signOut = (action, payload) => (dispatch, getState) => {
-	dispatch({
-		type: authActions.LOADING,
-		payload: { ...payload },
-	});
 	axios.get(config.BACKEND_BASE_URL + config.AUTH_SIGNOUT_ENDPOINT, {
 		headers: {
 			Authorization: `Bearer ${payload.jwt}`,

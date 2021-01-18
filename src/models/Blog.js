@@ -21,6 +21,8 @@ class Blog {
 		this.blogTitle = blogTitle;
 		this.blogContent = blogContent;
 		this.blogRelatedLinks = blogRelatedLinks;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
 }
 

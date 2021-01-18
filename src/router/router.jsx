@@ -11,9 +11,8 @@ import Blog from "../pages/Blog/Blog";
 import { connect } from "react-redux";
 import actionGenerator from "../redux/actionsGenerator/actions.generator";
 import authActions from "../redux/constants/auth.actions";
-
 import Cookies from "js-cookie";
-import SignOut from "../pages/SignOut/SignOut";
+
 function BlogsRouter(props) {
 	const jwt = Cookies.get("jwt");
 	useEffect(() => {
@@ -46,7 +45,6 @@ function BlogsRouter(props) {
 					</Route>
 					<ProtectedRoute exact path="/blogs" component={Blogs} />
 					<ProtectedRoute exact path="/blogs/:blogId" component={Blog} />
-					<ProtectedRoute exact path="/signOut" component={SignOut} />
 				</Switch>
 			</div>
 		</BrowserRouter>

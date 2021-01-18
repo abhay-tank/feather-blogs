@@ -16,6 +16,7 @@ const getAllBlogs = (action, payload) => (dispatch, getState) => {
 			},
 		})
 		.then((response) => {
+			console.log("Blog data => ", response.data.data);
 			let blogs = response.data.data.map(
 				(blog) =>
 					new Blog(
@@ -35,7 +36,6 @@ const getAllBlogs = (action, payload) => (dispatch, getState) => {
 						blog.updatedAt
 					)
 			);
-			console.log(blogs);
 			dispatch({
 				type: blogsActions.GETALL,
 				payload: { blogs },
@@ -103,4 +103,11 @@ const getBlogById = (action, payload) => (dispatch, getState) => {
 		});
 };
 
-export { getAllBlogs, getBlogById };
+const wipeData = (action, payload) => (dispatch, getState) => {
+	dispatch({
+		type: blogsActions.WIPEDATA,
+		payload: {},
+	});
+};
+
+export { getAllBlogs, getBlogById, wipeData };

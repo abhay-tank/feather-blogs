@@ -16,21 +16,24 @@ function Blogs(props) {
 	} else {
 		return (
 			<div className={styles["container"]}>
+				<div className={styles["blog-card"]}>
+					<h1>Create Blog</h1>
+				</div>
 				{props.blogsState.error ? <h1>{props.blogsState.error}</h1> : null}
 				{props.blogsState.blogs.map((blog) => {
 					return (
 						<div className={styles["blog-card"]} key={blog.blogId}>
 							<h1>{blog.blogTitle}</h1>
+							<hr className={styles["hr"]} />
 							<h3>{blog.blogAuthor}</h3>
 							<h4>{blog.blogId}</h4>
-							<p></p>
 							<p>
 								{blog.blogContent.length > 100
 									? blog.blogContent.substring(0, 100) + "  ....."
 									: blog.blogContent}
 							</p>
 							<Link to={`/blogs/${blog.blogId}`}>
-								<button>Read more</button>
+								<button className={styles["btn-small"]}>Read more</button>
 							</Link>
 						</div>
 					);

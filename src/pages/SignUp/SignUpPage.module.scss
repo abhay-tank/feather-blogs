@@ -31,7 +31,8 @@
 			outline: none;
 			background-color: $light-orange;
 			&:focus {
-				background-color: $mountain-meadow;
+				color: $mountain-meadow;
+				background-color: $dark-green;
 				border-bottom: 5px solid $light-orange;
 			}
 		}
@@ -47,7 +48,8 @@
 			cursor: pointer;
 			width: 100%;
 			&:focus {
-				background-color: $mountain-meadow;
+				color: $mountain-meadow;
+				background-color: $dark-green;
 				border-bottom: 5px solid $light-orange;
 			}
 		}

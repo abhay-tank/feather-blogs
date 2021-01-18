@@ -1,3 +1,5 @@
+@import "../../theme";
+
 .container {
 	position: relative;
 	display: flex;
@@ -6,6 +8,7 @@
 	align-items: center;
 	justify-content: center;
 	text-align: center;
+	background-color: $transparent-black;
 	img {
 		height: auto;
 		width: 50%;

@@ -10,6 +10,10 @@ const blogsReducer = (state = defaultState, action) => {
 	switch (action.type) {
 		default:
 			return { ...state };
+		case blogsActions.WIPEDATA:
+			return {
+				...defaultState,
+			};
 		case blogsActions.CREATE:
 			return {
 				...state,
