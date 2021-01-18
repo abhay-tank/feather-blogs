@@ -7,6 +7,7 @@ import authActions from "../../redux/constants/auth.actions";
 import Cookies from "js-cookie";
 import styles from "./SignInPage.module.scss";
 import signInImage from "../../assets/images/sign-in.svg";
+import Loading from "../../components/loading/loading";
 function SignInPage(props) {
 	let [formData, setFormData] = useState({
 		email: "",
@@ -54,14 +55,24 @@ function SignInPage(props) {
 		});
 		return props.signIn(user);
 	};
-	if (props.state.isLoggedIn) {
+
+	const isCookiePresent = () => {
+		let jwt = Cookies.get("jwt");
+		if (jwt !== undefined && jwt.length > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+	if (props.state.isLoggedIn && props.state.jwt && !isCookiePresent()) {
 		Cookies.set("jwt", props.state.jwt);
+	} else if (props.state.isLoggedIn && props.state.jwt && isCookiePresent()) {
+		console.log("Navigating to Blogs");
 		return <Redirect to={"/blogs"} exact />;
-	} else if (props.state.loading) {
-		return <h1>Loading</h1>;
 	} else {
 		return (
 			<div className={styles["container"]}>
+				{props.state.loading ? <Loading /> : null}
 				{props.state.error && props.state.error.length ? (
 					<h5>{props.state.error}</h5>
 				) : null}

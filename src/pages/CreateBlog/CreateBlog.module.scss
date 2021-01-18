@@ -1,0 +1,84 @@
+@import "../../theme";
+.container {
+	display: flex;
+	min-height: 100vh;
+	background-color: $transparent-black;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	img {
+		height: 20vh;
+		width: auto;
+		margin: 2rem;
+	}
+	form {
+		width: 80%;
+		font-size: 1.5rem;
+		display: flex;
+		flex-direction: inherit;
+		align-items: inherit;
+		justify-content: inherit;
+		input[type="text"],
+		textarea {
+			margin: 1rem;
+			border: none;
+			border-bottom: 5px solid $mountain-meadow;
+			padding: 0.5rem;
+			transition: 300ms;
+			font-size: 1.5rem;
+			width: 80%;
+			outline: none;
+			color: $mountain-meadow;
+			background-color: $dark-green;
+			&:focus {
+				color: $light-orange;
+				background-color: $dark-green;
+				border-bottom: 5px solid $light-orange;
+			}
+		}
+		fieldset {
+			width: 80%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		.custom-file-upload {
+			margin: 1rem;
+			border: none;
+			border-bottom: 5px solid $mountain-meadow;
+			padding: 0.5rem;
+			transition: 300ms;
+			font-size: 1.5rem;
+			outline: none;
+			background-color: $light-orange;
+			cursor: pointer;
+			width: 80%;
+			&:focus {
+				color: $mountain-meadow;
+				background-color: $dark-green;
+				border-bottom: 5px solid $light-orange;
+			}
+		}
+		input[type="file"] {
+			display: none;
+		}
+	}
+}
+
+.btn-small {
+	padding: 0.5rem;
+	margin: 1rem;
+	font-size: 1.2rem;
+	border-radius: 2rem;
+	text-decoration: none;
+	cursor: pointer;
+	color: $dark-green;
+	background-color: $mountain-meadow;
+	border: 2px solid $pale-spring-bud;
+	transition: 300ms;
+	&:hover {
+		background-color: $pale-spring-bud;
+		border: 2px solid $mountain-meadow;
+	}
+}

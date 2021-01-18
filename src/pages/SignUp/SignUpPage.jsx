@@ -6,6 +6,7 @@ import actionGenerator from "../../redux/actionsGenerator/actions.generator";
 import authActions from "../../redux/constants/auth.actions";
 import styles from "./SignUpPage.module.scss";
 import signUpImage from "../../assets/images/sign-up.svg";
+import Loading from "../../components/loading/loading";
 function SignUpPage(props) {
 	const [formData, setFormData] = useState({
 		firstName: "",
@@ -67,8 +68,6 @@ function SignUpPage(props) {
 	};
 	if (props.state.isLoggedIn) {
 		return <Redirect to={"/blogs"} exact />;
-	} else if (props.state.loading) {
-		return <h1>Loading</h1>;
 	} else if (
 		props.state.user.firstName &&
 		props.state.user.firstName.length &&
@@ -82,6 +81,7 @@ function SignUpPage(props) {
 	} else {
 		return (
 			<div className={styles["container"]}>
+				{props.state.loading ? <Loading /> : null}
 				{props.state.error ? <h5>{props.state.error}</h5> : null}
 				<img src={signUpImage} alt="SignUpBanner" />
 				<form onSubmit={signUp} id="signUpForm" name="signUpForm">

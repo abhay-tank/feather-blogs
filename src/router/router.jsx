@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import actionGenerator from "../redux/actionsGenerator/actions.generator";
 import authActions from "../redux/constants/auth.actions";
 import Cookies from "js-cookie";
+import CreateBlog from "../pages/CreateBlog/CreateBlog";
 
 function BlogsRouter(props) {
 	const jwt = Cookies.get("jwt");
@@ -45,6 +46,7 @@ function BlogsRouter(props) {
 					</Route>
 					<ProtectedRoute exact path="/blogs" component={Blogs} />
 					<ProtectedRoute exact path="/blogs/:blogId" component={Blog} />
+					<ProtectedRoute exact path="/createBlog" component={CreateBlog} />
 				</Switch>
 			</div>
 		</BrowserRouter>

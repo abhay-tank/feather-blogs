@@ -38,3 +38,27 @@
 		}
 	}
 }
+
+.create-card {
+	align-items: center;
+	justify-content: center;
+	img {
+		width: 30%;
+	}
+	.btn-small {
+		padding: 0.5rem;
+		margin: 1rem;
+		font-size: 1.2rem;
+		border-radius: 2rem;
+		text-decoration: none;
+		cursor: pointer;
+		color: $dark-green;
+		background-color: $mountain-meadow;
+		border: 2px solid $pale-spring-bud;
+		transition: 300ms;
+		&:hover {
+			background-color: $pale-spring-bud;
+			border: 2px solid $mountain-meadow;
+		}
+	}
+}

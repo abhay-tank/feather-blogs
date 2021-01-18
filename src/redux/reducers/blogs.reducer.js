@@ -19,7 +19,7 @@ const blogsReducer = (state = defaultState, action) => {
 				...state,
 				loading: false,
 				error: null,
-				blogs: [...state.blogs, ...action.payload.blogs],
+				blogs: [...state.blogs, { ...action.payload.blog }],
 			};
 		case blogsActions.GETALL:
 			return {

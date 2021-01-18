@@ -7,7 +7,12 @@ import {
 	verifyUser,
 	fetchSessionFromCookies,
 } from "../middlewares/authentication";
-import { getAllBlogs, getBlogById, wipeData } from "../middlewares/blogs";
+import {
+	getAllBlogs,
+	getBlogById,
+	createBlog,
+	wipeData,
+} from "../middlewares/blogs";
 const actionGenerator = (action, payload) => {
 	switch (action) {
 		default:
@@ -26,10 +31,7 @@ const actionGenerator = (action, payload) => {
 		case authActions.SIGNOUT:
 			return signOut(action, payload);
 		case blogsActions.CREATE:
-			return {
-				type: blogsActions.CREATE,
-				payload: payload || { blogs: [] },
-			};
+			return createBlog(action, payload);
 		case blogsActions.GETALL:
 			return getAllBlogs(action, payload);
 		case blogsActions.GETBYID:

@@ -3,6 +3,7 @@ import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import actionGenerator from "./../../redux/actionsGenerator/actions.generator";
 import authActions from "./../../redux/constants/auth.actions";
+import Loading from "../../components/loading/loading";
 
 function VerifyUser(props) {
 	useEffect(() => {
@@ -24,7 +25,7 @@ function VerifyUser(props) {
 	} else if (props.state.error) {
 		return <h1>{props.state.error}</h1>;
 	} else if (props.state.loading) {
-		return <h1>Loading</h1>;
+		return <Loading />;
 	} else {
 		return <h1>Signup first.</h1>;
 	}
@@ -46,7 +47,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	};
 };
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(withRouter(VerifyUser));
+export default withRouter(
+	connect(mapStateToProps, mapDispatchToProps)(VerifyUser)
+);

@@ -103,6 +103,67 @@ const getBlogById = (action, payload) => (dispatch, getState) => {
 		});
 };
 
+const createBlog = (action, payload) => (dispatch, getState) => {
+	const { authReducer } = getState();
+	dispatch({
+		type: blogsActions.LOADING,
+		payload: { ...payload },
+	});
+	axios
+		.post(
+			config.BACKEND_BASE_URL + config.BLOGS_CREATE_ENDPOINT,
+			payload.newBlog,
+			{
+				headers: {
+					Authorization: `Bearer ${authReducer.jwt}`,
+					"Content-Type": "multipart/form-data",
+				},
+			}
+		)
+		.then((response) => {
+			let blog = response.data.data;
+			console.log(blog);
+			let newPayload = {
+				blog: new Blog(
+					blog.blogId,
+					blog.blogAuthor,
+					blog.blogTitle,
+					blog.blogContent,
+					blog.blogImages.map((image) => {
+						return {
+							blogImageAlt: image.blogImageAlt,
+							blogImageId: image.blogImagePublicId,
+							blogImageURL: image.blogImageURL,
+						};
+					}),
+					blog.blogRelatedLinks,
+					blog.createdAt,
+					blog.updatedAt
+				),
+			};
+			dispatch({
+				type: blogsActions.CREATE,
+				payload: newPayload,
+			});
+		})
+		.catch((error) => {
+			let newError;
+			if (error.response && error.response.status === 400) {
+				console.error("Error fetching data => ", error.response.data.message);
+				newError = "Blog server Error: " + error.response.data.message;
+			} else if (error.response && error.response.status === 500) {
+				console.error(error.response.data.message);
+				newError = "Blog server Error";
+			} else {
+				console.error("Error creating blogs: ", error);
+				newError = "Blog server Error";
+			}
+			dispatch({
+				type: blogsActions.ERROR,
+				payload: { ...payload, error: newError },
+			});
+		});
+};
 const wipeData = (action, payload) => (dispatch, getState) => {
 	dispatch({
 		type: blogsActions.WIPEDATA,
@@ -110,4 +171,4 @@ const wipeData = (action, payload) => (dispatch, getState) => {
 	});
 };
 
-export { getAllBlogs, getBlogById, wipeData };
+export { getAllBlogs, getBlogById, wipeData, createBlog };

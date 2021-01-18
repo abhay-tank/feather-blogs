@@ -7,6 +7,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background: url("./assets/images/home-bg.svg") rgba(0, 0, 0, 0.4);
+	background-attachment: fixed;
 	background-size: cover;
 	background-blend-mode: multiply;
 	color: $pale-spring-bud;
