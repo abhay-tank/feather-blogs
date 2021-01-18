@@ -8,15 +8,20 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.281);
+	box-shadow: 3px 3px 5px $transparent-black;
 }
 
 .navbar-link {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: 5rem;
-	width: 100%;
+	height: auto;
+	color: $pale-spring-bud;
+	text-decoration: none;
+	width: 5rem;
+	padding: 1rem 0;
+	border: 1px solid $transparent-black;
 	img {
 		height: 3rem;
 		width: 3rem;
@@ -26,6 +31,7 @@
 		background-color: $mountain-meadow;
 	}
 }
+
 .sign-out {
 	margin-top: auto;
 }

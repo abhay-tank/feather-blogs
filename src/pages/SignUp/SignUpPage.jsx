@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Redirect } from "react-router-dom";
 import actionGenerator from "../../redux/actionsGenerator/actions.generator";
 import authActions from "../../redux/constants/auth.actions";
+import styles from "./SignUpPage.module.scss";
+import signUpImage from "../../assets/images/sign-up.svg";
 function SignUpPage(props) {
 	const [formData, setFormData] = useState({
 		firstName: "",
@@ -26,13 +28,13 @@ function SignUpPage(props) {
 				}
 				break;
 			case "lastName":
-				setFormData({ ...formData, lastName: event.target.value });
+				setFormData({ ...formData, lastName: event.target.value.trim() });
 				break;
 			case "email":
-				setFormData({ ...formData, email: event.target.value });
+				setFormData({ ...formData, email: event.target.value.trim() });
 				break;
 			case "password":
-				setFormData({ ...formData, password: event.target.value });
+				setFormData({ ...formData, password: event.target.value.trim() });
 				break;
 			case "avatarImage":
 				if (event.target.files.length) {
@@ -45,6 +47,14 @@ function SignUpPage(props) {
 	};
 	const signUp = (event) => {
 		event.preventDefault();
+		const strongPasswordRegex = new RegExp(
+			"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+		);
+		if (!strongPasswordRegex.test(formData.password)) {
+			return props.raiseError(
+				"Password does not meet criteria. Password must be atleast of 8 characters or more and must not exceed 512 characters. Password must be combination of lowercase alphabets, uppercase alphabets, numbers and symbols out of !, @, #, $, %, ^, &, * "
+			);
+		}
 		let newUser = new FormData();
 		Object.keys(formData).forEach((key) => {
 			if (key === "avatarImage") {
@@ -64,61 +74,71 @@ function SignUpPage(props) {
 		props.state.user.firstName.length &&
 		!props.state.user.accountVerified
 	) {
-		return <h1>Verification email sent. Verify account and sign in.</h1>;
+		return (
+			<div className={styles["container"]}>
+				<h1>Verification email sent. Verify account and sign in.</h1>
+			</div>
+		);
 	} else {
 		return (
-			<div>
-				{props.state.error ? <h1>{props.state.error}</h1> : null}
+			<div className={styles["container"]}>
+				{props.state.error ? <h5>{props.state.error}</h5> : null}
+				<img src={signUpImage} alt="SignUpBanner" />
 				<form onSubmit={signUp} id="signUpForm" name="signUpForm">
-					<label htmlFor="firstName">First Name</label>
 					<input
 						id="firstName"
 						onChange={handleChange}
 						value={formData.firstName}
+						placeholder="👦 First Name"
 						name="firstName"
 						type="text"
 						required
 					/>
-					<br />
-					<label htmlFor="lastName">Last Name</label>
 					<input
 						id="lastName"
 						onChange={handleChange}
 						value={formData.lastName}
 						name="lastName"
+						placeholder="👨‍🦳 Last Name"
 						type="text"
 					/>
-					<br />
-					<label htmlFor="email">Email</label>
 					<input
 						onChange={handleChange}
 						value={formData.email}
 						id="email"
 						name="email"
+						placeholder="📧 Email"
 						type="email"
 						required
 					/>
-					<br />
-					<label htmlFor="password">Password</label>
 					<input
 						onChange={handleChange}
 						value={formData.password}
 						id="password"
 						name="password"
 						type="password"
+						placeholder="🔐 Password"
 						autoComplete="true"
 						required
 					/>
-					<br />
-					<label htmlFor="avatarImage">Profile Image</label>
+					<label htmlFor="avatarImage" className={styles["custom-file-upload"]}>
+						{formData.avatarImage && formData.avatarImage.name
+							? formData.avatarImage.name.length > 20
+								? `${formData.avatarImage.name.substring(0, 20)}...`
+								: `${formData.avatarImage.name}`
+							: "📸 Upload Avatar Image"}
+					</label>
 					<input
+						className={styles["custom-file-input"]}
 						onChange={handleChange}
 						id="avatarImage"
 						name="avatarImage"
 						type="file"
 						accept="image/*"
 					/>
-					<button type="submit">Submit</button>
+					<button className="btn" type="submit">
+						Submit
+					</button>
 				</form>
 			</div>
 		);

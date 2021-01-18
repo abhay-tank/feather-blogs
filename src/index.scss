@@ -6,7 +6,9 @@ body {
 		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-color: white;
+	background: url("./assets/images/home-bg.svg") rgba(0, 0, 0, 0.4);
+	background-size: cover;
+	background-blend-mode: multiply;
 	color: $blue-sapphire;
 }
 
@@ -18,14 +20,14 @@ body {
 	padding: 0.7rem 1.2rem;
 	margin: 1rem;
 	font-size: 1.5rem;
-	color: $blue-sapphire;
-	border: 1px solid $blue-sapphire;
-	background-color: white;
+	color: $pale-spring-bud;
+	border: 1px solid $pale-spring-bud;
+	background-color: $transparent-black;
 	border-radius: 3rem;
 	transition: 400ms;
 	&:hover {
-		background-color: $mountain-meadow;
-		color: white;
+		border: 1px solid $dark-orange;
+		background-color: $light-orange;
 	}
 }
 

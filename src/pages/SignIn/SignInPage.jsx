@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import actionGenerator from "../../redux/actionsGenerator/actions.generator";
 import authActions from "../../redux/constants/auth.actions";
 import Cookies from "js-cookie";
+import styles from "./SignInPage.module.scss";
+import signInImage from "../../assets/images/sign-in.svg";
 function SignInPage(props) {
 	let [formData, setFormData] = useState({
 		email: "",
@@ -38,6 +40,14 @@ function SignInPage(props) {
 
 	const signIn = (event) => {
 		event.preventDefault();
+		const strongPasswordRegex = new RegExp(
+			"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+		);
+		if (!strongPasswordRegex.test(formData.password)) {
+			return props.raiseError(
+				"Password does not meet criteria. Password must be atleast of 8 characters or more and must not exceed 512 characters. Password must be combination of lowercase alphabets, uppercase alphabets, numbers and symbols out of !, @, #, $, %, ^, &, * "
+			);
+		}
 		let user = new FormData();
 		Object.keys(formData).forEach((key) => {
 			user.append(key, formData[key]);
@@ -51,16 +61,18 @@ function SignInPage(props) {
 		return <h1>Loading</h1>;
 	} else {
 		return (
-			<div>
+			<div className={styles["container"]}>
 				{props.state.error && props.state.error.length ? (
-					<h1>{props.state.error}</h1>
+					<h5>{props.state.error}</h5>
 				) : null}
+				<img src={signInImage} alt="SignIn Banner" />
 				<form>
 					<label htmlFor="email"></label>
 					<input
 						type="email"
 						name="email"
 						id="email"
+						placeholder="📧 Email"
 						onChange={handleChange}
 						value={formData.email}
 						required
@@ -70,12 +82,15 @@ function SignInPage(props) {
 						type="password"
 						name="password"
 						id="password"
+						placeholder="🔐 Password"
 						onChange={handleChange}
 						value={formData.password}
 						autoComplete="true"
 						required
 					/>
-					<button onClick={signIn}>SignIn</button>
+					<button className="btn" onClick={signIn}>
+						SignIn
+					</button>
 				</form>
 			</div>
 		);

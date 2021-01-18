@@ -1,0 +1,39 @@
+@import "../../theme";
+
+.container {
+	display: flex;
+	min-height: 100vh;
+	background-color: $transparent-black;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	img {
+		height: 20vh;
+		width: auto;
+		margin: 2rem;
+	}
+	form {
+		font-size: 1.5rem;
+		display: flex;
+		flex-direction: inherit;
+		align-items: inherit;
+		justify-content: inherit;
+		input[type="text"],
+		input[type="email"],
+		input[type="password"] {
+			margin: 1rem;
+			border: none;
+			border-bottom: 5px solid $mountain-meadow;
+			padding: 0.5rem;
+			transition: 300ms;
+			font-size: 1.5rem;
+			width: 100%;
+			outline: none;
+			background-color: $light-orange;
+			&:focus {
+				background-color: $mountain-meadow;
+				border-bottom: 5px solid $light-orange;
+			}
+		}
+	}
+}
