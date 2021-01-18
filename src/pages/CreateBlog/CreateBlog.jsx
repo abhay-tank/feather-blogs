@@ -4,7 +4,7 @@ import actionGenerator from "../../redux/actionsGenerator/actions.generator";
 import blogsActions from "../../redux/constants/blogs.actions";
 import styles from "./CreateBlog.module.scss";
 import Loading from "../../components/loading/loading";
-
+import createBlogImage from "../../assets/images/create-blog.svg";
 function CreateBlog(props) {
 	let author = `${props.authState.user.firstName} ${props.authState.user.lastName}`;
 	let loading = props.authState.loading || props.blogsState.loading;
@@ -121,13 +121,13 @@ function CreateBlog(props) {
 		<div className={styles["container"]}>
 			{loading ? <Loading /> : null}
 			{error ? <h5>{error}</h5> : null}
-			{/* <img src={signUpImage} alt="SignUpBanner" /> */}
+			<img src={createBlogImage} alt="Create Blog Banner" />
 			<form onSubmit={createBlog} id="createBlog" name="createBlog">
 				<input
 					id="blogTitle"
 					onChange={handleChange}
 					value={formData.blogTitle}
-					placeholder="🆕 Blog Title"
+					placeholder="✨ Blog Title"
 					name="blogTitle"
 					type="text"
 					required

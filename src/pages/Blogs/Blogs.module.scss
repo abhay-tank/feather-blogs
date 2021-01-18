@@ -60,5 +60,8 @@
 			background-color: $pale-spring-bud;
 			border: 2px solid $mountain-meadow;
 		}
+		&:focus {
+			outline: none;
+		}
 	}
 }

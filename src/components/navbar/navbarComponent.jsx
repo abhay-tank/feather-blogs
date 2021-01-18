@@ -32,13 +32,14 @@ function NavbarComponent(props) {
 				<>
 					<Link className={styles["navbar-link"]} to="/blogs">
 						<img src={blogsIcon} title="Blogs" alt="blogsIcon" />
-						<h3>Blogs</h3>
+						<p>Blogs</p>
 					</Link>
 					<a
 						onClick={signOut}
 						className={`${styles["navbar-link"]} ${styles["sign-out"]}`}
 					>
 						<img src={signOutIcon} title="Sign Out" alt="Sign Out" />
+						<p>Sign Out</p>
 					</a>
 				</>
 			) : (

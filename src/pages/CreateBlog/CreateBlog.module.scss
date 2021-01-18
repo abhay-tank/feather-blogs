@@ -51,7 +51,8 @@
 			transition: 300ms;
 			font-size: 1.5rem;
 			outline: none;
-			background-color: $light-orange;
+			color: $mountain-meadow;
+			background-color: $dark-green;
 			cursor: pointer;
 			width: 80%;
 			&:focus {
@@ -80,5 +81,8 @@
 	&:hover {
 		background-color: $pale-spring-bud;
 		border: 2px solid $mountain-meadow;
+	}
+	&:focus {
+		outline: none;
 	}
 }

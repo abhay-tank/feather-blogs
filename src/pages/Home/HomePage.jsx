@@ -12,7 +12,11 @@ export default class HomePage extends Component {
 			<div>
 				<div className={styles["container"]}>
 					<img src={logo} alt="logo" />
-					<button className="btn">Get Started</button>
+					<h1>
+						Publish your passions your way. Whether you'd like to share your
+						knowledge, experiences or the latest news, create a unique and
+						beautiful blog for free.
+					</h1>
 				</div>
 			</div>
 		);

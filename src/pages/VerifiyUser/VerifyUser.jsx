@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import actionGenerator from "./../../redux/actionsGenerator/actions.generator";
 import authActions from "./../../redux/constants/auth.actions";
 import Loading from "../../components/loading/loading";
-
+import styles from "./VerifyUser.module.scss";
 function VerifyUser(props) {
 	useEffect(() => {
 		if (!props.state.isLoggedIn) {
@@ -15,10 +15,10 @@ function VerifyUser(props) {
 	}, []);
 	if (props.state.user.accountVerified) {
 		return (
-			<div>
+			<div className={styles["container"]}>
 				<h1>You are successfully verified. SignIn to continue</h1>
 				<Link to="/signIn">
-					<button>Sign In</button>
+					<button className="btn">Sign In</button>
 				</Link>
 			</div>
 		);
