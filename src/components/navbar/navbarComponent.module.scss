@@ -8,8 +8,7 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-	background-color: $marigold;
-	box-shadow: 5px 5px 20px $xiketic;
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.281);
 }
 
 .navbar-link {
@@ -24,7 +23,7 @@
 	}
 	transition: 500ms;
 	&:hover {
-		background-color: $xiketic;
+		background-color: $mountain-meadow;
 	}
 }
 .sign-out {

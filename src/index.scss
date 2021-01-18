@@ -6,12 +6,27 @@ body {
 		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-color: $marigold;
-	color: $xiketic;
+	background-color: white;
+	color: $blue-sapphire;
 }
 
 .main-container {
 	margin-left: 5rem;
+}
+
+.btn {
+	padding: 0.7rem 1.2rem;
+	margin: 1rem;
+	font-size: 1.5rem;
+	color: $blue-sapphire;
+	border: 1px solid $blue-sapphire;
+	background-color: white;
+	border-radius: 3rem;
+	transition: 400ms;
+	&:hover {
+		background-color: $mountain-meadow;
+		color: white;
+	}
 }
 
 code {
