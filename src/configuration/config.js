@@ -1,5 +1,5 @@
 const config = {
-	BACKEND_BASE_URL: "http://localhost:4000",
+	BACKEND_BASE_URL: "https://feather-api.herokuapp.com",
 	AUTH_SIGNUP_ENDPOINT: "/auth/signUp", // POST
 	AUTH_SIGNIN_ENDPOINT: "/auth/signIn", // POST
 	AUTH_SIGNOUT_ENDPOINT: "/auth/signOut", // GET
