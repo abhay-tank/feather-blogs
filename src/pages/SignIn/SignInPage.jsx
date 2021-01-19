@@ -68,7 +68,8 @@ function SignInPage(props) {
 	};
 	if (props.state.isLoggedIn && props.state.jwt && !isCookiePresent()) {
 		Cookies.set("jwt", props.state.jwt);
-	} else if (props.state.isLoggedIn && props.state.jwt && isCookiePresent()) {
+	}
+	if (props.state.isLoggedIn && props.state.jwt && isCookiePresent()) {
 		console.log("Navigating to Blogs");
 		return <Redirect to={"/blogs"} exact />;
 	} else {
