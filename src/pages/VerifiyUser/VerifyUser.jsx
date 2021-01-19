@@ -19,8 +19,11 @@ function VerifyUser(props) {
 	return (
 		<div className={styles["container"]}>
 			{props.state.loading ? <Loading /> : null}
-			{props.state.error ? (
-				<Notification isError={true} message={props.state.error} />
+			{props.state.notify.message ? (
+				<Notification
+					isError={props.state.notify.isError}
+					message={props.state.notify.message}
+				/>
 			) : null}
 			{props.state.user.accountVerified ? (
 				<>

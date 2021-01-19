@@ -143,6 +143,13 @@ const createBlog = (action, payload) => (dispatch, getState) => {
 				type: blogsActions.CREATE,
 				payload: newPayload,
 			});
+			dispatch({
+				type: blogsActions.NOTIFY,
+				payload: {
+					...payload,
+					notify: { message: "Blog created successfully", isError: false },
+				},
+			});
 		})
 		.catch((error) => {
 			let newError;

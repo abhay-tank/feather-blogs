@@ -19,8 +19,11 @@ function Blog(props) {
 	return (
 		<div className={styles["container"]}>
 			{props.blogsState.loading ? <Loading /> : null}
-			{props.blogsState.error ? (
-				<Notification isError={true} message={props.blogsState.error} />
+			{props.blogsState.notify.message ? (
+				<Notification
+					isError={props.blogsState.notify.isError}
+					message={props.blogsState.notify.message}
+				/>
 			) : null}
 			<h1>{blog.blogTitle}</h1>
 			<h2>{blog.blogAuthor}</h2>

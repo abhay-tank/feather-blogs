@@ -25,8 +25,11 @@ function Blogs(props) {
 					Create Blog ✒️
 				</Link>
 			</div>
-			{props.blogsState.error ? (
-				<Notification isError={true} message={props.blogsState.error} />
+			{props.blogsState.notify.message ? (
+				<Notification
+					isError={props.blogsState.notify.isError}
+					message={props.blogsState.notify.message}
+				/>
 			) : null}
 			{props.blogsState.blogs.map((blog) => {
 				return (

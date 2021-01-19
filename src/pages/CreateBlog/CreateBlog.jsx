@@ -10,7 +10,11 @@ import Notification from "../../components/notification/notification";
 function CreateBlog(props) {
 	let author = `${props.authState.user.firstName} ${props.authState.user.lastName}`;
 	let loading = props.authState.loading || props.blogsState.loading;
-	let error = props.authState.error || props.blogsState.error;
+	let notify = props.authState.notify.message
+		? props.authState.notify
+		: props.blogsState.notify.message
+		? props.blogsState.notify
+		: null;
 	const [formData, setFormData] = useState({
 		blogTitle: "",
 		blogContent: "",
@@ -91,14 +95,23 @@ function CreateBlog(props) {
 					});
 				}
 			} else if (key === "blogRelatedLinks") {
-				newBlog.append(key, JSON.stringify(formData[key]));
+				if (formData[key].length) {
+					let relatedLinks = [];
+					formData[key].forEach((link) => {
+						if (link.relatedBlogId.length && link.relatedBlogTitle) {
+							relatedLinks.push(link);
+						}
+					});
+					if (relatedLinks.length) {
+						newBlog.append(key, JSON.stringify(relatedLinks));
+					}
+				}
 			} else {
 				newBlog.append(key, formData[key]);
 			}
 		});
 		newBlog.append("blogAuthor", author);
 		props.createBlog(newBlog);
-		props.history.push("/blogs");
 	};
 
 	const deleteRelatedLink = (index) => {
@@ -119,10 +132,13 @@ function CreateBlog(props) {
 			],
 		});
 	};
+
 	return (
 		<div className={styles["container"]}>
 			{loading ? <Loading /> : null}
-			{error ? <Notification isError={true} message={error} /> : null}
+			{notify && notify.message ? (
+				<Notification isError={notify.isError} message={notify.message} />
+			) : null}
 			<img src={createBlogImage} alt="Create Blog Banner" />
 			<form onSubmit={createBlog} id="createBlog" name="createBlog">
 				<input
@@ -210,8 +226,26 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		raiseError: (message) => {
 			dispatch({
-				type: blogsActions.ERROR,
-				payload: { error: message },
+				type: blogsActions.NOTIFY,
+				payload: {
+					notify: {
+						message: message,
+						isError: true,
+						isWarning: false,
+					},
+				},
+			});
+		},
+		clearNotification: () => {
+			dispatch({
+				type: blogsActions.NOTIFY,
+				payload: {
+					notify: {
+						message: null,
+						isError: false,
+						isWarning: false,
+					},
+				},
 			});
 		},
 		createBlog: (newBlog) => {

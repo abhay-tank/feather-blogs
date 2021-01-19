@@ -83,8 +83,11 @@ function SignUpPage(props) {
 		return (
 			<div className={styles["container"]}>
 				{props.state.loading ? <Loading /> : null}
-				{props.state.error ? (
-					<Notification isError={true} message={props.state.error} />
+				{props.state.notify.message ? (
+					<Notification
+						isError={props.state.notify.isError}
+						message={props.state.notify.message}
+					/>
 				) : null}
 				<img src={signUpImage} alt="SignUpBanner" />
 				<form onSubmit={signUp} id="signUpForm" name="signUpForm">
@@ -161,8 +164,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 		raiseError: (message) => {
 			dispatch({
-				type: authActions.ERROR,
-				payload: { error: message },
+				type: authActions.NOTIFY,
+				payload: {
+					notify: {
+						message: message,
+						isError: true,
+						isWarning: false,
+					},
+				},
 			});
 		},
 	};

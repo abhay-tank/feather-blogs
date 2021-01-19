@@ -3,20 +3,20 @@ import { connect } from "react-redux";
 import authActions from "../../redux/constants/auth.actions";
 import blogsActions from "../../redux/constants/blogs.actions";
 import styles from "./notification.module.scss";
-function Notification({ clearError, isError = false, message = "" }) {
+function Notification(props) {
 	useEffect(() => {
 		setTimeout(() => {
-			clearError();
+			props.hideNotification();
 		}, 5000);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
 		<div
 			className={`${styles["notification-container"]} ${
-				isError ? styles["notify-error"] : styles["notify-success"]
+				props.isError ? styles["notify-error"] : styles["notify-success"]
 			}`}
 		>
-			<h3>{message}</h3>
+			<h3>{props.message}</h3>
 		</div>
 	);
 }
@@ -24,21 +24,33 @@ function Notification({ clearError, isError = false, message = "" }) {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const dispatchError = (dispatch, getState) => {
 		const { authReducer: authState, blogsReducer: blogsState } = getState();
-		if (authState.error) {
+		if (authState.notify.message) {
 			dispatch({
-				type: authActions.CLEARERROR,
-				payload: {},
+				type: authActions.NOTIFY,
+				payload: {
+					notify: {
+						message: null,
+						isError: false,
+						isWarning: false,
+					},
+				},
 			});
 		}
-		if (blogsState.error) {
+		if (blogsState.notify.message) {
 			dispatch({
-				type: blogsActions.CLEARERROR,
-				payload: {},
+				type: blogsActions.NOTIFY,
+				payload: {
+					notify: {
+						message: null,
+						isError: false,
+						isWarning: false,
+					},
+				},
 			});
 		}
 	};
 	return {
-		clearError: () => {
+		hideNotification: () => {
 			dispatch(dispatchError);
 		},
 	};
