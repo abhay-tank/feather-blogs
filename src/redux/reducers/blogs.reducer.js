@@ -57,11 +57,23 @@ const blogsReducer = (state = defaultState, action) => {
 				loading: true,
 				error: null,
 			};
+		case blogsActions.CLEARLOADING:
+			return {
+				...state,
+				loading: false,
+				error: null,
+			};
 		case blogsActions.ERROR:
 			return {
 				...state,
 				loading: false,
 				error: action.payload.error,
+			};
+		case blogsActions.CLEARERROR:
+			return {
+				...state,
+				loading: false,
+				error: null,
 			};
 	}
 };

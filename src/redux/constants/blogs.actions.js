@@ -6,6 +6,8 @@ const blogsActions = {
 	DELETE: "blogs/deleteBlog",
 	LOADING: "blogs/loading",
 	ERROR: "blogs/error",
+	CLEARLOADING: "blogs/clearLoading",
+	CLEARERROR: "blogs/clearError",
 	WIPEDATA: "blogs/wipeData",
 };
 

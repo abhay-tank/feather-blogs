@@ -3,8 +3,10 @@ import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import actionGenerator from "./../../redux/actionsGenerator/actions.generator";
 import authActions from "./../../redux/constants/auth.actions";
-import Loading from "../../components/loading/loading";
 import styles from "./VerifyUser.module.scss";
+import Loading from "../../components/loading/loading";
+import Error from "../../components/error/error";
+
 function VerifyUser(props) {
 	useEffect(() => {
 		if (!props.state.isLoggedIn) {
@@ -16,16 +18,14 @@ function VerifyUser(props) {
 	if (props.state.user.accountVerified) {
 		return (
 			<div className={styles["container"]}>
+				{props.state.loading ? <Loading /> : null}
+				{props.state.error ? <Error errorMessage={props.state.error} /> : null}
 				<h1>You are successfully verified. SignIn to continue</h1>
 				<Link to="/signIn">
 					<button className="btn">Sign In</button>
 				</Link>
 			</div>
 		);
-	} else if (props.state.error) {
-		return <h1>{props.state.error}</h1>;
-	} else if (props.state.loading) {
-		return <Loading />;
 	} else {
 		return <h1>Signup first.</h1>;
 	}

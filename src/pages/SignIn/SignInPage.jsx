@@ -8,6 +8,8 @@ import Cookies from "js-cookie";
 import styles from "./SignInPage.module.scss";
 import signInImage from "../../assets/images/sign-in.svg";
 import Loading from "../../components/loading/loading";
+import Error from "../../components/error/error";
+
 function SignInPage(props) {
 	let [formData, setFormData] = useState({
 		email: "",
@@ -73,9 +75,8 @@ function SignInPage(props) {
 		return (
 			<div className={styles["container"]}>
 				{props.state.loading ? <Loading /> : null}
-				{props.state.error && props.state.error.length ? (
-					<h5>{props.state.error}</h5>
-				) : null}
+				{props.state.error ? <Error errorMessage={props.state.error} /> : null}
+
 				<img src={signInImage} alt="SignIn Banner" />
 				<form>
 					<label htmlFor="email"></label>

@@ -1,0 +1,15 @@
+@import "../../theme";
+
+.error-container {
+	position: fixed;
+	z-index: 100;
+	bottom: 0;
+	right: 0;
+	margin: 1rem;
+	padding: 1rem;
+	transition: 300ms;
+	border-radius: 0.5rem;
+	background-color: $dark-orange;
+	box-shadow: 5px 5px 5px $dark-green;
+	color: white;
+}

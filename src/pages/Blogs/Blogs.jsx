@@ -6,6 +6,7 @@ import blogsActions from "../../redux/constants/blogs.actions";
 import styles from "./Blogs.module.scss";
 import createBlog from "../../assets/images/icons/create-blog.svg";
 import Loading from "../../components/loading/loading";
+import Error from "../../components/error/error";
 
 function Blogs(props) {
 	useEffect(() => {
@@ -24,7 +25,10 @@ function Blogs(props) {
 					Create Blog ✒️
 				</Link>
 			</div>
-			{props.blogsState.error ? <h1>{props.blogsState.error}</h1> : null}
+			{props.blogsState.error ? (
+				<Error errorMessage={props.blogsState.error} />
+			) : null}
+
 			{props.blogsState.blogs.map((blog) => {
 				return (
 					<div key={blog.blogId} className={styles["blog-card"]}>

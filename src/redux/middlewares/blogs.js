@@ -16,7 +16,6 @@ const getAllBlogs = (action, payload) => (dispatch, getState) => {
 			},
 		})
 		.then((response) => {
-			console.log("Blog data => ", response.data.data);
 			let blogs = response.data.data.map(
 				(blog) =>
 					new Blog(
@@ -122,7 +121,6 @@ const createBlog = (action, payload) => (dispatch, getState) => {
 		)
 		.then((response) => {
 			let blog = response.data.data;
-			console.log(blog);
 			let newPayload = {
 				blog: new Blog(
 					blog.blogId,

@@ -36,6 +36,12 @@
 			border: 2px solid $mountain-meadow;
 			color: $dark-green;
 		}
+		&:focus {
+			background-color: $pale-spring-bud;
+			border: 2px solid $mountain-meadow;
+			color: $dark-green;
+			outline: none;
+		}
 	}
 }
 
@@ -61,6 +67,8 @@
 			border: 2px solid $mountain-meadow;
 		}
 		&:focus {
+			background-color: $pale-spring-bud;
+			border: 2px solid $mountain-meadow;
 			outline: none;
 		}
 	}

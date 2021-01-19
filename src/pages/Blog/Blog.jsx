@@ -5,6 +5,7 @@ import actionGenerator from "../../redux/actionsGenerator/actions.generator";
 import blogsActions from "../../redux/constants/blogs.actions";
 import styles from "./Blog.module.scss";
 import Loading from "../../components/loading/loading";
+import Error from "../../components/error/error";
 
 function Blog(props) {
 	useEffect(() => {
@@ -18,7 +19,9 @@ function Blog(props) {
 	return (
 		<div className={styles["container"]}>
 			{props.blogsState.loading ? <Loading /> : null}
-			{props.blogsState.error ? <h1>{props.blogsState.error}</h1> : null}
+			{props.blogsState.error ? (
+				<Error errorMessage={props.blogsState.error} />
+			) : null}
 			<h1>{blog.blogTitle}</h1>
 			<h2>{blog.blogAuthor}</h2>
 			<h3>{blog.blogId}</h3>

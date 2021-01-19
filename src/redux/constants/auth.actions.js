@@ -6,6 +6,8 @@ const authActions = {
 	VERIFYUSER: "auth/verifyUser",
 	LOADING: "auth/loading",
 	ERROR: "auth/error",
+	CLEARLOADING: "auth/clearLoading",
+	CLEARERROR: "auth/clearError",
 };
 
 export default authActions;
