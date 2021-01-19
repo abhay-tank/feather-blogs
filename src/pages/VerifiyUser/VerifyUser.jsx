@@ -5,7 +5,7 @@ import actionGenerator from "./../../redux/actionsGenerator/actions.generator";
 import authActions from "./../../redux/constants/auth.actions";
 import styles from "./VerifyUser.module.scss";
 import Loading from "../../components/loading/loading";
-import Error from "../../components/error/error";
+import Notification from "../../components/notification/notification";
 
 function VerifyUser(props) {
 	useEffect(() => {
@@ -15,20 +15,26 @@ function VerifyUser(props) {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-	if (props.state.user.accountVerified) {
-		return (
-			<div className={styles["container"]}>
-				{props.state.loading ? <Loading /> : null}
-				{props.state.error ? <Error errorMessage={props.state.error} /> : null}
-				<h1>You are successfully verified. SignIn to continue</h1>
-				<Link to="/signIn">
-					<button className="btn">Sign In</button>
-				</Link>
-			</div>
-		);
-	} else {
-		return <h1>Signup first.</h1>;
-	}
+
+	return (
+		<div className={styles["container"]}>
+			{props.state.loading ? <Loading /> : null}
+			{props.state.error ? (
+				<Notification isError={true} message={props.state.error} />
+			) : null}
+			{props.state.user.accountVerified ? (
+				<>
+					{" "}
+					<h1>You are successfully verified. SignIn to continue</h1>
+					<Link to="/signIn">
+						<button className="btn">Sign In</button>
+					</Link>
+				</>
+			) : (
+				<h1>Signup first.</h1>
+			)}
+		</div>
+	);
 }
 
 const mapStateToProps = (state, defaultProps) => {

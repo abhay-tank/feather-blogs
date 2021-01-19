@@ -4,7 +4,11 @@ const defaultState = {
 	blogs: [],
 	currentBlog: new Blog(),
 	loading: false,
-	error: null,
+	notify: {
+		message: null,
+		isError: false,
+		isWarning: false,
+	},
 };
 const blogsReducer = (state = defaultState, action) => {
 	switch (action.type) {
@@ -18,21 +22,33 @@ const blogsReducer = (state = defaultState, action) => {
 			return {
 				...state,
 				loading: false,
-				error: null,
+				notify: {
+					message: null,
+					isError: false,
+					isWarning: false,
+				},
 				blogs: [...state.blogs, { ...action.payload.blog }],
 			};
 		case blogsActions.GETALL:
 			return {
 				...state,
 				loading: false,
-				error: null,
+				notify: {
+					message: null,
+					isError: false,
+					isWarning: false,
+				},
 				blogs: [...state.blogs, ...action.payload.blogs],
 			};
 		case blogsActions.GETBYID:
 			return {
 				...state,
 				loading: false,
-				error: null,
+				notify: {
+					message: null,
+					isError: false,
+					isWarning: false,
+				},
 				blogs: [...state.blogs],
 				currentBlog: { ...action.payload.blog },
 			};
@@ -40,14 +56,22 @@ const blogsReducer = (state = defaultState, action) => {
 			return {
 				...state,
 				loading: false,
-				error: null,
+				notify: {
+					message: null,
+					isError: false,
+					isWarning: false,
+				},
 				blogs: [...state.blogs, ...action.payload.blogs],
 			};
 		case blogsActions.DELETE:
 			return {
 				...state,
 				loading: false,
-				error: null,
+				notify: {
+					message: null,
+					isError: false,
+					isWarning: false,
+				},
 				blogs: [...state.blogs, ...action.payload.blogs],
 			};
 
@@ -57,23 +81,11 @@ const blogsReducer = (state = defaultState, action) => {
 				loading: true,
 				error: null,
 			};
-		case blogsActions.CLEARLOADING:
+		case blogsActions.NOTIFY:
 			return {
 				...state,
 				loading: false,
-				error: null,
-			};
-		case blogsActions.ERROR:
-			return {
-				...state,
-				loading: false,
-				error: action.payload.error,
-			};
-		case blogsActions.CLEARERROR:
-			return {
-				...state,
-				loading: false,
-				error: null,
+				notify: { ...state.notify, ...action.payload.notify },
 			};
 	}
 };

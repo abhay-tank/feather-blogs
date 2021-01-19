@@ -5,9 +5,7 @@ const authActions = {
 	SIGNOUT: "auth/signOut",
 	VERIFYUSER: "auth/verifyUser",
 	LOADING: "auth/loading",
-	ERROR: "auth/error",
-	CLEARLOADING: "auth/clearLoading",
-	CLEARERROR: "auth/clearError",
+	NOTIFY: "auth/notify",
 };
 
 export default authActions;

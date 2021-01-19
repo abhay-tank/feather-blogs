@@ -5,7 +5,7 @@ import blogsActions from "../../redux/constants/blogs.actions";
 import styles from "./CreateBlog.module.scss";
 import Loading from "../../components/loading/loading";
 import createBlogImage from "../../assets/images/create-blog.svg";
-import Error from "../../components/error/error";
+import Notification from "../../components/notification/notification";
 
 function CreateBlog(props) {
 	let author = `${props.authState.user.firstName} ${props.authState.user.lastName}`;
@@ -122,7 +122,7 @@ function CreateBlog(props) {
 	return (
 		<div className={styles["container"]}>
 			{loading ? <Loading /> : null}
-			{error ? <Error errorMessage={error} /> : null}
+			{error ? <Notification isError={true} message={error} /> : null}
 			<img src={createBlogImage} alt="Create Blog Banner" />
 			<form onSubmit={createBlog} id="createBlog" name="createBlog">
 				<input

@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import styles from "./SignInPage.module.scss";
 import signInImage from "../../assets/images/sign-in.svg";
 import Loading from "../../components/loading/loading";
-import Error from "../../components/error/error";
+import Notification from "../../components/notification/notification";
 
 function SignInPage(props) {
 	let [formData, setFormData] = useState({
@@ -76,7 +76,9 @@ function SignInPage(props) {
 		return (
 			<div className={styles["container"]}>
 				{props.state.loading ? <Loading /> : null}
-				{props.state.error ? <Error errorMessage={props.state.error} /> : null}
+				{props.state.error ? (
+					<Notification isError={true} message={props.state.error} />
+				) : null}
 
 				<img src={signInImage} alt="SignIn Banner" />
 				<form>

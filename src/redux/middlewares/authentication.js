@@ -84,8 +84,8 @@ const signUp = (action, payload) => (dispatch, getState) => {
 				newError = "Authentication Server Error";
 			}
 			dispatch({
-				type: authActions.ERROR,
-				payload: { ...payload, error: newError },
+				type: authActions.NOTIFY,
+				payload: { ...payload, notify: { message: newError, isError: true } },
 			});
 		});
 };
@@ -137,8 +137,8 @@ const verifyUser = (action, payload) => (dispatch, getState) => {
 				newError = "Authentication Server Error";
 			}
 			dispatch({
-				type: authActions.ERROR,
-				payload: { ...payload, error: newError },
+				type: authActions.NOTIFY,
+				payload: { ...payload, notify: { message: newError, isError: true } },
 			});
 		});
 };
@@ -187,8 +187,8 @@ const signIn = (action, payload) => async (dispatch, getState) => {
 				newError = "Authentication Server Error";
 			}
 			dispatch({
-				type: authActions.ERROR,
-				payload: { ...payload, error: newError },
+				type: authActions.NOTIFY,
+				payload: { ...payload, notify: { message: newError, isError: true } },
 			});
 		});
 };

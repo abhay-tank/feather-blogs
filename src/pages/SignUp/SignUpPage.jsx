@@ -7,7 +7,7 @@ import authActions from "../../redux/constants/auth.actions";
 import styles from "./SignUpPage.module.scss";
 import signUpImage from "../../assets/images/sign-up.svg";
 import Loading from "../../components/loading/loading";
-import Error from "../../components/error/error";
+import Notification from "../../components/notification/notification";
 function SignUpPage(props) {
 	const [formData, setFormData] = useState({
 		firstName: "",
@@ -83,7 +83,9 @@ function SignUpPage(props) {
 		return (
 			<div className={styles["container"]}>
 				{props.state.loading ? <Loading /> : null}
-				{props.state.error ? <Error errorMessage={props.state.error} /> : null}
+				{props.state.error ? (
+					<Notification isError={true} message={props.state.error} />
+				) : null}
 				<img src={signUpImage} alt="SignUpBanner" />
 				<form onSubmit={signUp} id="signUpForm" name="signUpForm">
 					<input

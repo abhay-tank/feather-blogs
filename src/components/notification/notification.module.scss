@@ -1,6 +1,6 @@
 @import "../../theme";
 
-.error-container {
+.notification-container {
 	position: fixed;
 	z-index: 100;
 	bottom: 0;
@@ -9,7 +9,14 @@
 	padding: 1rem;
 	transition: 300ms;
 	border-radius: 0.5rem;
-	background-color: $dark-orange;
 	box-shadow: 5px 5px 5px $dark-green;
-	color: white;
+	color: $dark-green;
+}
+
+.notify-error {
+	background-color: $dark-orange;
+}
+
+.notify-success {
+	background-color: $mountain-meadow;
 }

@@ -3,7 +3,11 @@ import authActions from "../constants/auth.actions";
 const defaultState = {
 	user: new User(),
 	loading: false,
-	error: null,
+	notify: {
+		message: null,
+		isError: false,
+		isWarning: false,
+	},
 	isLoggedIn: false,
 	jwt: null,
 };
@@ -16,7 +20,11 @@ const authReducer = (state = defaultState, action) => {
 			return {
 				...state,
 				loading: false,
-				error: null,
+				notify: {
+					message: null,
+					isError: false,
+					isWarning: false,
+				},
 				isLoggedIn: action.payload.user.accountVerified ? true : false,
 				user: { ...action.payload.user } || { ...state.user },
 				jwt: action.payload.jwt || state.jwt,
@@ -25,7 +33,11 @@ const authReducer = (state = defaultState, action) => {
 			return {
 				...state,
 				loading: false,
-				error: null,
+				notify: {
+					message: null,
+					isError: false,
+					isWarning: false,
+				},
 				isLoggedIn: false,
 				user: { ...action.payload.user } || { ...state.user },
 				jwt: state.jwt,
@@ -34,7 +46,11 @@ const authReducer = (state = defaultState, action) => {
 			return {
 				...state,
 				loading: false,
-				error: null,
+				notify: {
+					message: null,
+					isError: false,
+					isWarning: false,
+				},
 				isLoggedIn: false,
 				user: { ...action.payload.user } || { ...state.user },
 			};
@@ -44,25 +60,17 @@ const authReducer = (state = defaultState, action) => {
 			return {
 				...state,
 				loading: true,
-				error: null,
+				notify: {
+					message: null,
+					isError: false,
+					isWarning: false,
+				},
 			};
-		case authActions.CLEARLOADING:
+		case authActions.NOTIFY:
 			return {
 				...state,
 				loading: false,
-				error: null,
-			};
-		case authActions.ERROR:
-			return {
-				...state,
-				loading: false,
-				error: action.payload.error,
-			};
-		case authActions.CLEARERROR:
-			return {
-				...state,
-				loading: false,
-				error: null,
+				notify: { ...state.notify, ...action.payload.notify },
 			};
 	}
 };

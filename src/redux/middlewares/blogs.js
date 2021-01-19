@@ -53,8 +53,8 @@ const getAllBlogs = (action, payload) => (dispatch, getState) => {
 				newError = "Error loading blogs.";
 			}
 			dispatch({
-				type: blogsActions.ERROR,
-				payload: { ...payload, error: newError },
+				type: blogsActions.NOTIFY,
+				payload: { ...payload, notify: { message: newError, isError: true } },
 			});
 		});
 };
@@ -96,8 +96,8 @@ const getBlogById = (action, payload) => (dispatch, getState) => {
 				newError = "Error loading blogs.";
 			}
 			dispatch({
-				type: blogsActions.ERROR,
-				payload: { ...payload, error: newError },
+				type: blogsActions.NOTIFY,
+				payload: { ...payload, notify: { message: newError, isError: true } },
 			});
 		});
 };
@@ -157,8 +157,8 @@ const createBlog = (action, payload) => (dispatch, getState) => {
 				newError = "Blog server Error";
 			}
 			dispatch({
-				type: blogsActions.ERROR,
-				payload: { ...payload, error: newError },
+				type: blogsActions.NOTIFY,
+				payload: { ...payload, notify: { message: newError, isError: true } },
 			});
 		});
 };
