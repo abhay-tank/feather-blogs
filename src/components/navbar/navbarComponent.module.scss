@@ -8,6 +8,7 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
+	background-color: $transparent-black;
 	box-shadow: 3px 3px 5px $transparent-black;
 	z-index: 99;
 	.navbar-link {

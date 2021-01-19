@@ -1,0 +1,19 @@
+.container {
+	position: relative;
+	display: flex;
+	min-height: 100vh;
+	width: 100%;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	img {
+		height: auto;
+		width: 30vw;
+		border-radius: 50%;
+	}
+	h1 {
+		font-weight: normal;
+		width: 80%;
+	}
+}

@@ -13,7 +13,7 @@ import actionGenerator from "../redux/actionsGenerator/actions.generator";
 import authActions from "../redux/constants/auth.actions";
 import Cookies from "js-cookie";
 import CreateBlog from "../pages/CreateBlog/CreateBlog";
-
+import PageNotFound from "../pages/PageNotFound/PageNotFound";
 function BlogsRouter(props) {
 	const jwt = Cookies.get("jwt");
 	useEffect(() => {
@@ -47,6 +47,9 @@ function BlogsRouter(props) {
 					<ProtectedRoute exact path="/blogs" component={Blogs} />
 					<ProtectedRoute exact path="/blogs/:blogId" component={Blog} />
 					<ProtectedRoute exact path="/createBlog" component={CreateBlog} />
+					<Route>
+						<PageNotFound />
+					</Route>
 				</Switch>
 			</div>
 		</BrowserRouter>
