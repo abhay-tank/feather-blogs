@@ -130,4 +130,4 @@ yarn start
 
 ## Project is composed with [reduxDevTools](https://github.com/zalmoxisus/redux-devtools-extension) for state tracking.
 
-### Project is hosted at [Feather Blogs]().
+### Project is hosted at [Feather Blogs](https://feather-blogs.herokuapp.com/).
